@@ -1,0 +1,62 @@
+networks:
+  inception:
+    name: inception
+
+volumes:
+  database:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/gguedes/data/database
+
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/gguedes/data/wordpress
+
+services:
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb
+    image: mariadb
+    env_file: .env
+    restart: on-failure
+    networks:
+      - inception
+    ports:
+      - 3306:3306
+    volumes:
+      - database:/var/lib/mysql
+
+  wordpress:
+    container_name: wordpress
+    build: requirements/wordpress
+    image: wordpress
+    env_file: .env
+    restart: on-failure
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    ports:
+      - 9000:9000
+    volumes:
+      - wordpress:/var/www/html
+
+  nginx:
+    container_name: nginx
+    build: requirements/nginx
+    image: nginx
+    env_file: .env
+    restart: on-failure
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+    ports:
+      - 443:443
+    volumes:
+      - wordpress:/var/www/html
