@@ -15,17 +15,16 @@ stop:
 	$(COMPOSE) stop
 
 volumes:
-	mkdir -p /home/gguedes/data/database /home/gguedes/data/wordpress
+	mkdir -p ~/data/database ~/data/wordpress
 
 ssl:
 	openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-		-out certificate.cert -keyout private.key -subj "/CN=gguedes.42.fr"
+		-out certificate.cert -keyout private.key -subj "/CN=gguedes.42.rio"
 
 clean: down
-	-docker rm -f $$(docker ps -q)
-	-docker rmi -f $$(docker images -q)
-	-docker network rm $$(docker network ls -q)
-	-docker volume rm $$(docker volume ls -q)
-	-rm -rf /home/gguedes/data/*
+	-docker rm -f $$(docker ps -aq)
+	-docker rmi -f $$(docker images -aq)
+	-docker network rm $$(docker network ls -aq)
+	-docker volume rm $$(docker volume ls -aq)
 
 .PHONY: all up start down stop volumes ssl clean
