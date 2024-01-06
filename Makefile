@@ -24,7 +24,7 @@ ssl:
 clean: down
 	-docker rm -f $$(docker ps -aq)
 	-docker rmi -f $$(docker images -aq)
-	-docker network rm $$(docker network ls -aq)
-	-docker volume rm $$(docker volume ls -aq)
+	-docker network rm $$(docker network ls -q)
+	-docker volume rm $$(docker volume ls -q)
 
 .PHONY: all up start down stop volumes ssl clean
