@@ -8,14 +8,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/gguedes/data/database
+      device: ~/data/database
 
   wordpress:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/gguedes/data/wordpress
+      device: ~/data/wordpress
 
 services:
   mariadb:
@@ -26,8 +26,6 @@ services:
     restart: on-failure
     networks:
       - inception
-    ports:
-      - 3306:3306
     volumes:
       - database:/var/lib/mysql
 
@@ -41,8 +39,6 @@ services:
       - mariadb
     networks:
       - inception
-    ports:
-      - 9000:9000
     volumes:
       - wordpress:/var/www/html
 
