@@ -8,13 +8,15 @@ Ensure that the required dependencies (make, docker, and docker-compose) are ins
 
 Additionally, create the file `srcs/.env` containing the credentials that will initiate the services. See: [.env.example](srcs/.env.example).
 
-To generate SSL_CERT and SSL_KEY, use the following command, replacing DOMAIN with the same DOMAIN in your `srcs/.env`:
+To generate SSL_CERT and SSL_KEY, run `make ssl`, this will generate the certificate.crt and private.key to place in your `srcs/.env`.
 
-```sh
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout private.key -out certificate.crt -subj "/CN=DOMAIN"
-```
+Also, it's crucial to include the domain `gguedes.42.rio` in your hosts file since it may not be registered with a known DNS.
 
-The files certificate.crt and private.key will be generated containing SSL_CERT and SSL_KEY, respectively.
+It can be done by adding the line `127.0.0.1 gguedes.42.rio` to your hosts file.
+
+On Windows, the hosts file is located at C:\Windows\System32\drivers\etc\hosts.
+
+On Unix, the hosts file is located at /etc/hosts.
 
 # Usage
 
