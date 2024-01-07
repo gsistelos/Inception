@@ -1,6 +1,8 @@
 # Inception
 
-This is a system administration project with Docker containers. It utilizes Docker image virtualization to run a web server with Nginx, a MariaDB database, and a WordPress webpage.
+A system administration project with Docker containers.
+
+It utilizes Docker image virtualization to run a web server with Nginx, a MariaDB database, and a WordPress webpage.
 
 # Dependencies
 
